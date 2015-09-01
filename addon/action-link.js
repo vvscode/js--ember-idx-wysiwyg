@@ -2,6 +2,7 @@ import Em from 'ember';
 import WithConfigMixin from 'ember-idx-utils/mixin/with-config';
 import Modal from 'ember-idx-modal/modal';
 var computed = Em.computed;
+var COMPONENT_NAME = 'view:em-wysiwyg-action-link-modal';
 
 export default Em.Component.extend(WithConfigMixin, {
   tagName: 'a',
@@ -9,18 +10,20 @@ export default Em.Component.extend(WithConfigMixin, {
   linkHref: '',
   initModal: (function() {
     var container = this.get('container');
-    container.register('view:em-wysiwyg-action-link-modal', Modal.extend({
-      layoutName: 'components/em-wysiwyg-action-link-modal',
-      configName: 'bs',
-      _parentView: this,
-      linkHref: computed.alias('parentView.linkHref'),
-      actions: {
-        addLink: function() {
-          this.get('parentView').send('addLink');
+    if(!container.lookupFactory(COMPONENT_NAME)) {
+      container._registry.register(COMPONENT_NAME, Modal.extend({
+        layoutName: 'components/em-wysiwyg-action-link-modal',
+        configName: 'bs',
+        _parentView: this,
+        linkHref: computed.alias('parentView.linkHref'),
+        actions: {
+          addLink: function() {
+            this.get('parentView').send('addLink');
+          }
         }
-      }
-    }));
-    this.set('modal', container.lookup('view:em-wysiwyg-action-link-modal'));
+      }));
+    }
+    this.set('modal', container.lookup(COMPONENT_NAME));
     return this.get('modal').append();
   }).on('init'),
   styleClasses: (function() {
