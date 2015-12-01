@@ -37,6 +37,12 @@ export default Em.Component.extend(StyleBindingsMixin, {
   restoreSelection: function() {
     var e, selection;
     selection = window.getSelection();
+    var selectionStr = selection.toString();
+    var contentStr = this.$().text();
+    if(selectionStr === contentStr) {
+      return selection;
+    }
+
     if (this.get('selectionRange')) {
       try {
         selection.removeAllRanges();
