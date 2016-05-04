@@ -10,19 +10,17 @@ export default Em.Component.extend(WithConfigMixin, {
   linkHref: '',
   initModal: (function () {
     var container = this.get('container');
-    if (!container.lookupFactory(COMPONENT_NAME)) {
-      container._registry.register(COMPONENT_NAME, Modal.extend({
-        layoutName: 'components/em-wysiwyg-action-link-modal',
-        configName: 'bs',
-        _parentView: this,
-        linkHref: computed.alias('parentView.linkHref'),
-        actions: {
-          addLink: function () {
-            this.get('parentView').send('addLink');
-          },
+    container._registry.register(COMPONENT_NAME, Modal.extend({
+      layoutName: 'components/em-wysiwyg-action-link-modal',
+      configName: 'bs',
+      _parentView: this,
+      linkHref: computed.alias('parentView.linkHref'),
+      actions: {
+        addLink: function () {
+          this.get('parentView').send('addLink');
         },
-      }));
-    }
+      },
+    }));
 
     this.set('modal', container.lookup(COMPONENT_NAME));
     return this.get('modal').append();
@@ -79,4 +77,8 @@ export default Em.Component.extend(WithConfigMixin, {
       };
     })(this));
   }).on('init'),
+
+  unregisterComponent: function () {
+    this.container.unregister(COMPONENT_NAME);
+  }.on('willDestroyElement'),
 });
