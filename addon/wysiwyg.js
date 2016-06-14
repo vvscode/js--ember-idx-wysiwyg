@@ -55,6 +55,9 @@ export default Em.Component.extend(WithConfigMixin, {
    * Set the editor instance
    */
   setEditor: function(editor) {
+    if (editor && editor.element) {
+      editor.element.addEventListener('paste', () => Em.run.scheduleOnce('afterRender', this, this.asHtmlUpdater));
+    }
     return this.set('editor', editor);
   },
   asHtmlUpdater: (function() {
