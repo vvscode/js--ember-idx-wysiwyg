@@ -61,10 +61,10 @@ export default Em.Component.extend(StyleBindingsMixin, {
     }
     return this.saveSelection();
   },
-  register: (function() {
+  register: Ember.on('didInsertElement', function() {
     return this.get('wysiwyg').setEditor(this);
-  }).on('didInsertElement'),
-  unregister: (function() {
+  }),
+  unregister: Ember.on('willDestroyElement', function() {
     return this.get('wysiwyg').setEditor(void 0);
-  }).on('willDestroyElement')
+  })
 });
