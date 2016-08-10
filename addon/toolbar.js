@@ -1,17 +1,17 @@
-import Em from 'ember';
+import Ember from 'ember';
 import WithConfigMixin from 'ember-idx-utils/mixin/with-config';
 
 const {
   on,
   computed
-} = Em;
+} = Ember;
 
 /**
  * Toolbar component
  *
  * @class Toolbar
  */
-export default Em.Component.extend(WithConfigMixin, {
+export default Ember.Component.extend(WithConfigMixin, {
   classNameBindings: ['styleClasses'],
   styleClasses: computed(function() {
     var _ref;
@@ -19,7 +19,7 @@ export default Em.Component.extend(WithConfigMixin, {
   }),
   groups: void 0,
   initGroups: on('init', function() {
-    return this.set('groups', Em.ArrayProxy.create({
+    return this.set('groups', Ember.ArrayProxy.create({
       content: []
     }));
   }),

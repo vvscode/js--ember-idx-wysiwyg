@@ -1,4 +1,4 @@
-import Em from 'ember';
+import Ember from 'ember';
 import WithConfigMixin from 'ember-idx-utils/mixin/with-config';
 
 /**
@@ -7,7 +7,7 @@ import WithConfigMixin from 'ember-idx-utils/mixin/with-config';
  * @class Wysiwyg
  */
 
-export default Em.Component.extend(WithConfigMixin, {
+export default Ember.Component.extend(WithConfigMixin, {
   classNameBindings: ['styleClasses'],
   styleClasses: Ember.computed(function() {
     var _ref;
@@ -24,14 +24,14 @@ export default Em.Component.extend(WithConfigMixin, {
    */
   editor: void 0,
   initToolbars: Ember.on('init', function() {
-    return this.set('toolbars', Em.ArrayProxy.create({
+    return this.set('toolbars', Ember.ArrayProxy.create({
       content: []
     }));
   }),
 
   initEditorContent: Ember.observer('editor', function() {
     if (this.get('editor')) {
-      return Em.run.once(this, (function() {
+      return Ember.run.once(this, (function() {
         return this.get('editor').$().html(this.get('as_html'));
       }));
     }
@@ -56,10 +56,11 @@ export default Em.Component.extend(WithConfigMixin, {
    */
   setEditor: function(editor) {
     if (editor && editor.element) {
-      editor.element.addEventListener('paste', () => Em.run.scheduleOnce('afterRender', this, this.asHtmlUpdater));
+      editor.element.addEventListener('paste', () => Ember.run.scheduleOnce('afterRender', this, this.asHtmlUpdater));
     }
     return this.set('editor', editor);
   },
+
   asHtmlUpdater: Ember.on('update_actions', function() {
     return this.set('as_html', this.get('editor').$().html().replace(/(<br>|\s|<div><br><\/div>|&nbsp;)*$/, ''));
   })

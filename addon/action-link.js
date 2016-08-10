@@ -1,10 +1,10 @@
-import Em from 'ember';
+import Ember from 'ember';
 import WithConfigMixin from 'ember-idx-utils/mixin/with-config';
 import Modal from 'ember-idx-modal/modal';
-var computed = Em.computed;
+var computed = Ember.computed;
 var COMPONENT_NAME = 'view:em-wysiwyg-action-link-modal';
 
-export default Em.Component.extend(WithConfigMixin, {
+export default Ember.Component.extend(WithConfigMixin, {
   tagName: 'a',
   classNameBindings: ['styleClasses', 'activeClasses'],
   linkHref: '',
@@ -64,7 +64,7 @@ export default Em.Component.extend(WithConfigMixin, {
           container = container.parentNode;
         }
         if (container.nodeName === "A") {
-          _this.set('linkHref', Em.$(container).attr('href'));
+          _this.set('linkHref', Ember.$(container).attr('href'));
           return _this.set('active', true);
         } else {
           _this.set('linkHref', '');
