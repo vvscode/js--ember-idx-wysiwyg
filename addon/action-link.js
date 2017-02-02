@@ -14,11 +14,11 @@ export default Ember.Component.extend(WithConfigMixin, {
       container._registry.register(COMPONENT_NAME, Modal.extend({
         layoutName: 'components/em-wysiwyg-action-link-modal',
         configName: 'bs',
-        _parentView: this,
+        parentView: this,
         linkHref: computed.alias('parentView.linkHref'),
         actions: {
           addLink: function() {
-            (this.get('parentView') || this.get('_parentView')).send('addLink');
+            this.get('parentView').send('addLink');
           }
         }
       }));
