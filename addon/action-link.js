@@ -18,12 +18,14 @@ export default Ember.Component.extend(WithConfigMixin, {
         linkHref: computed.alias('parentView.linkHref'),
         actions: {
           addLink: function() {
-            this.get('parentView').send('addLink');
+            (this.get('parentView') || this.get('_parentView')).send('addLink');
           }
         }
       }));
     }
-    this.set('modal', container.lookup(COMPONENT_NAME));
+    var modal = container.lookup(COMPONENT_NAME);
+    modal.set('parentView', this);
+    this.set('modal', modal);
     return this.get('modal').append();
   }).on('init'),
   styleClasses: (function() {
