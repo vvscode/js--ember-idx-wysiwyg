@@ -49,6 +49,7 @@ export default Ember.Component.extend(WithConfigMixin, {
       }
       this.get('editor').saveSelection();
       this.get('wysiwyg').trigger('update_actions');
+			this.get('editor').$('a:not([target="_blank"])').attr('target', '_blank');
       return this.get('modal').close();
     }
   },
